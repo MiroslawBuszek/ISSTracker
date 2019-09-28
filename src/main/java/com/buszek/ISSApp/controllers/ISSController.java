@@ -1,6 +1,8 @@
 package com.buszek.ISSApp.controllers;
 
 import com.buszek.ISSApp.models.IssLocator;
+import com.buszek.ISSApp.service.LocationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,18 +12,12 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/api")
 public class ISSController {
 
-    private static final String FAILED = "failed";
+    @Autowired
+    private LocationService locationService;
 
     @GetMapping("/issLocation")
     public IssLocator getISSLocation() {
-        try {
-            RestTemplate restTemplate = new RestTemplate();
-            return restTemplate.getForObject("http://api.open-notify.org/iss-now.json", IssLocator.class);
-        } catch (Exception e) {
-            IssLocator issLocator = new IssLocator();
-            issLocator.setMessage(FAILED);
-            return issLocator;
-        }
+       return this.locationService.getIssLocation();
 
     }
 }
