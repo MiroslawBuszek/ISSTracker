@@ -13,13 +13,13 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/api")
 public class ISSController {
 
-     @Autowired
+    @Autowired
     private LocationService locationService;
 
     @GetMapping("/issLocation")
     @CrossOrigin
     public IssLocator getISSLocation() {
-       return this.locationService.getIssLocation();
+        return this.locationService.getIssLocation();
 
     }
 }
